@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/thaison247/go-blockchain/configs"
 	"github.com/thaison247/go-blockchain/structs"
 	"strconv"
 )
@@ -21,5 +22,7 @@ func main() {
 		fmt.Printf("Data: %s\n", block.Data)
 		fmt.Printf("Hash: %x\n\n", block.Hash)
 	}
-}
 
+	conf := configs.GetConfig()
+	fmt.Println(conf.TARGET_BITS)
+}
