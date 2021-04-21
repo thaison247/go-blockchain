@@ -65,3 +65,4 @@ func DeserializeBlock(d []byte) *Block {
 
 	return &block
 }
+
