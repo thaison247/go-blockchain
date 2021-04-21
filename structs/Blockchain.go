@@ -82,3 +82,11 @@ func NewBlockchain() *Blockchain {
 
 	return &bc
 }
+
+// get blockchain iterator: this iterator point to the last block
+func (bc *Blockchain) Iterator() *BlockchainIterator {
+	bci := &BlockchainIterator{bc.tip, bc.db}
+
+	return bci
+}
+
