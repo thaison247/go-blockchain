@@ -3,6 +3,8 @@ package structs
 import (
 	"bytes"
 	"crypto/sha256"
+	"encoding/gob"
+	"fmt"
 	"strconv"
 	"time"
 )
@@ -38,4 +40,28 @@ func NewBlock(data string, prevBlockHash []byte) *Block {
 // initialize the Genesis Block (1st block in a blockchain)
 func NewGenesisBlock() *Block {
 	return NewBlock("Genesis Block", []byte{}) // a block without previous block's hash
+}
+
+// serialize block to array of bytes
+func (b *Block) Serialize() []byte {
+	var result bytes.Buffer
+	encoder := gob.NewEncoder(&result)
+
+	if err := encoder.Encode(b); err != nil {
+		fmt.Println(err)
+	}
+
+	return result.Bytes()
+}
+
+// deserialize array of bytes to block
+func DeserializeBlock(d []byte) *Block {
+	var block Block
+
+	decoder := gob.NewDecoder(bytes.NewReader(d))
+	if err := decoder.Decode(&block); err != nil {
+		fmt.Println(err)
+	}
+
+	return &block
 }
