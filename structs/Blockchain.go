@@ -6,8 +6,8 @@ import (
 )
 
 type Blockchain struct {
-	tip []byte
-	db *bolt.DB
+	Tip []byte
+	DB *bolt.DB
 }
 
 const (
@@ -20,7 +20,7 @@ const (
 func (bc *Blockchain) AddBlock(data string) {
 	var lastHash []byte
 
-	err := bc.db.View(func(tx *bolt.Tx) error {
+	err := bc.DB.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte(blocksBucket))
 		lastHash = b.Get([]byte("l"))
 
@@ -32,7 +32,7 @@ func (bc *Blockchain) AddBlock(data string) {
 
 	newBlock := NewBlock(data, lastHash)
 
-	err = bc.db.Update(func(tx *bolt.Tx) error {
+	err = bc.DB.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte(blocksBucket))
 
 		// add {key: <new block's hash>, value: <new block in array of bytes>}
@@ -45,7 +45,7 @@ func (bc *Blockchain) AddBlock(data string) {
 			fmt.Println(err)
 		}
 
-		bc.tip = newBlock.Hash
+		bc.Tip = newBlock.Hash
 
 		return nil
 	})
@@ -53,7 +53,7 @@ func (bc *Blockchain) AddBlock(data string) {
 
 // create a new Blockchain
 func NewBlockchain() *Blockchain {
-	var tip []byte
+	var Tip []byte
 	db, err := bolt.Open(dbFile, 0600, nil) // open database
 	if err != nil {
 		fmt.Println(err)
@@ -70,22 +70,22 @@ func NewBlockchain() *Blockchain {
 			}
 			err = b.Put(genesis.Hash, genesis.Serialize()) // add {key: <genesis has>, value: <genesis block in array of bytes>} to collection
 			err = b.Put([]byte(lastBlock), genesis.Hash) // the last block's in blockchain
-			tip = genesis.Hash
+			Tip = genesis.Hash
 		} else { // if "blocks" collection does eixst
-			tip = b.Get([]byte("l")) // get the block's hash
+			Tip = b.Get([]byte("l")) // get the block's hash
 		}
 
 		return nil
 	})
 
-	bc := Blockchain{tip, db}
+	bc := Blockchain{Tip, db}
 
 	return &bc
 }
 
 // get blockchain iterator: this iterator point to the last block
 func (bc *Blockchain) Iterator() *BlockchainIterator {
-	bci := &BlockchainIterator{bc.tip, bc.db}
+	bci := &BlockchainIterator{bc.Tip, bc.DB}
 
 	return bci
 }
