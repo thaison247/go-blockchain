@@ -5,30 +5,29 @@ import (
 	"crypto/sha256"
 	"encoding/gob"
 	"fmt"
-	"strconv"
 	"time"
 )
 
 type Block struct {
 	Timestamp     int64
-	Data          []byte
+	Transactions  []*Transaction
 	PrevBlockHash []byte
 	Hash          []byte
 	Nonce			int
 }
 
-// hash data of a block (timestamp, data, prevBlockHash) and assign it to Block.Hash
-func (b *Block) SetHash() {
-	timestamp := []byte(strconv.FormatInt(b.Timestamp, 10))
-	headers := bytes.Join([][]byte{b.PrevBlockHash, b.Data, timestamp}, []byte{})
-	hash := sha256.Sum256(headers)
+//  hashes data of a block (timestamp, data, prevBlockHash) and assign it to Block.Hash
+//func (b *Block) SetHash() {
+//	timestamp := []byte(strconv.FormatInt(b.Timestamp, 10))
+//	headers := bytes.Join([][]byte{b.PrevBlockHash, b.Data, timestamp}, []byte{})
+//	hash := sha256.Sum256(headers)
+//
+//	b.Hash = hash[:]
+//}
 
-	b.Hash = hash[:]
-}
-
-// create a new block with Data and Previous Block's Hash
-func NewBlock(data string, prevBlockHash []byte) *Block {
-	block := &Block{time.Now().Unix(), []byte(data), prevBlockHash, []byte{}, 0}
+// NewBlock creates a new block with Transactions and Previous Block's Hash
+func NewBlock(transactions []*Transaction, prevBlockHash []byte) *Block {
+	block := &Block{time.Now().Unix(), transactions, prevBlockHash, []byte{}, 0}
 	pow := NewProofOfWork(block)
 	nonce, hash := pow.Run() // finding nonce
 	block.Hash = hash[:]
@@ -37,12 +36,12 @@ func NewBlock(data string, prevBlockHash []byte) *Block {
 	return block
 }
 
-// initialize the Genesis Block (1st block in a blockchain)
-func NewGenesisBlock() *Block {
-	return NewBlock("Genesis Block", []byte{}) // a block without previous block's hash
+// NewGenesisBlock initializes the Genesis Block (1st block in a blockchain)
+func NewGenesisBlock(coinbase *Transaction) *Block {
+	return NewBlock([]*Transaction{coinbase}, []byte{}) // a block without previous block's hash
 }
 
-// serialize block to array of bytes
+// Serialize serializes block to array of bytes
 func (b *Block) Serialize() []byte {
 	var result bytes.Buffer
 	encoder := gob.NewEncoder(&result)
@@ -54,7 +53,7 @@ func (b *Block) Serialize() []byte {
 	return result.Bytes()
 }
 
-// deserialize array of bytes to block
+// DeserializeBlock deserializes array of bytes to block
 func DeserializeBlock(d []byte) *Block {
 	var block Block
 
@@ -64,5 +63,18 @@ func DeserializeBlock(d []byte) *Block {
 	}
 
 	return &block
+}
+
+// HashTransactions hashes all transactions in block. Return array of bytes.
+func (b *Block) HashTransactions() []byte {
+	var txHashes [][]byte
+	var txHash [32]byte
+
+	for _, tx := range b.Transactions {
+		txHashes = append(txHashes, tx.ID)
+	}
+	txHash = sha256.Sum256(bytes.Join(txHashes, []byte{}))
+
+	return txHash[:]
 }
 

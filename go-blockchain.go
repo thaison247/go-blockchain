@@ -6,9 +6,9 @@ import (
 
 func main() {
 	// create a new blockchain
-	bc := structs.NewBlockchain()
-	defer bc.DB.Close()
+	//bc := structs.NewBlockchain()
+	//defer bc.DB.Close()
 
-	cli := structs.CLI{bc}
+	cli := structs.CLI{}
 	cli.Run()
 }
