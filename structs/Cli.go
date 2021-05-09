@@ -180,7 +180,10 @@ func (cli *CLI) send(from, to string, amount int) {
 	defer bc.DB.Close()
 
 	tx := NewUTXOTransaction(from, to, amount, bc)
-	bc.MineBlock([]*Transaction{tx})
+	cbTx := NewCoinbaseTX(from, "")
+	txs := []*Transaction{cbTx, tx}
+
+	_ = bc.MineBlock(txs)
 	fmt.Println("Success!")
 }
 
