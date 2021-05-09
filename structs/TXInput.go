@@ -1,12 +1,16 @@
 package structs
 
+import "bytes"
+
 type TXInput struct {
 	Txid      []byte
 	Vout      int
-	ScriptSig string // sender's address
+	Signature []byte
+	PubKey    []byte
 }
 
-// CanUnlockOutputWith checks if an user can use this TXInput to create a TXOutput
-func (in *TXInput) CanUnlockOutputWith(unlockingData string) bool {
-	return in.ScriptSig == unlockingData
+func (in *TXInput) UsesKey(pubKeyHash []byte) bool {
+	lockingHash := HashPubKey(in.PubKey)
+
+	return bytes.Compare(lockingHash, pubKeyHash) == 0
 }
