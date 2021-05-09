@@ -113,31 +113,26 @@ func CreateBlockchain(address string) *Blockchain {
 	return &bc
 }
 
-// NewBlockchain creates a new Blockchain with genesis's coinbase sent for an specific address
-func NewBlockchain(address string) *Blockchain {
+// NewBlockchain creates a new Blockchain with genesis's coinbase
+func NewBlockchain() *Blockchain {
 	if dbExists() == false {
 		fmt.Println("No existing blockchain found. Create one first.")
 		os.Exit(1)
 	}
-
 	var tip []byte
 	db, err := bolt.Open(dbFile, 0600, nil)
 	if err != nil {
 		log.Panic(err)
 	}
-
 	err = db.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte(blocksBucket))
 		tip = b.Get([]byte("l"))
-
 		return nil
 	})
 	if err != nil {
 		log.Panic(err)
 	}
-
 	bc := Blockchain{tip, db}
-
 	return &bc
 }
 
