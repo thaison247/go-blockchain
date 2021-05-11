@@ -1,0 +1,35 @@
+{{define "navbar"}}
+<!-- ======= HEADER ======= -->
+<header class="header">
+    <div class="header__container shrink">
+        <div class="header__sidebar-toggle to-show">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="header__user">
+            <div class="header__user-toggle">
+                <img
+                        class="header__avatar"
+                        src="dist/img/avatar_icon_1.png"
+                        alt="avatar"
+                />
+                <div class="header__user-name">{{template "username" .}}</div>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+
+            <div class="header__user-option">
+                <div class="header__user-info">
+                    <span class="user-info__head">Thông tin tài khoản</span>
+                    <img src="dist/img/avatar_icon_2.png" alt="avatar" />
+                    <span class="user-info__name">{{template "username" .}} - {{template "uid" .}}</span>
+                    <span class="user-info__jobtitle"> Quản trị hệ thống </span>
+                </div>
+                <a href="/logout" class="header__logout">
+                    <img src="dist/img/logout.png" alt="logout" />
+                    <span>Đăng xuất</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ======= /. HEADER ======= -->
+{{end}}

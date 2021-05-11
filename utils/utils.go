@@ -6,3 +6,13 @@ func ReverseBytes(data []byte) {
 		data[i], data[j] = data[j], data[i]
 	}
 }
+
+const (
+	EXPLORE_PAGE = "explorer.html"
+)
+
+var (
+	ARR_TEMPLATES = []string{
+		EXPLORE_PAGE,
+	}
+)

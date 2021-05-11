@@ -1,0 +1,80 @@
+{{define "topbar"}}
+<div class="site-wrap">
+    <div class="site-mobile-menu">
+        <div class="site-mobile-menu-header">
+            <div class="site-mobile-menu-close mt-3">
+                <span class="icon-close2 js-menu-toggle"></span>
+            </div>
+        </div>
+        <div class="site-mobile-menu-body">
+            <ul class="site-nav-wrap">
+                <li class="sel-report-title">Loại báo cáo</li>
+                <li>
+                    <select class="sel-report-type">
+                        <option value="workforce">Workforce</option>
+                        <option value="hr">HR</option>
+                        <option value="payroll">Payroll</option>
+                    </select>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <header class="site-navbar" role="banner">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-12 search-form-wrap js-search-form">
+                    <form action="#">
+                        <input type="text" id="s" class="form-control" placeholder="Search...">
+                        <button class="search-btn" type="submit"><span class="icon-search"></span></button>
+                    </form>
+                </div>
+                <div class="col-4 site-logo">
+                    <a href="/"><img src="dist/img/Scommerce-Logo-V2.png" class="logo_img" /></a>
+                    {{template "report_paging" . }}
+                </div>
+                <div class="col-8 text-right">
+                    <nav class="site-navigation" role="navigation">
+                        <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block mb-0">
+                            <li class="sel-report-title">Loại báo cáo</li>
+                            <li>
+                                <select class="sel-report-type">
+                                    <option value="workforce">Workforce</option>
+                                    <option value="hr">HR</option>
+                                    <option value="payroll">Payroll</option>
+                                </select>
+                            </li>
+                            <li class="round-badge">
+                                <img src="dist/img/avatar3.png" alt="Avatar" class="avatar"/>
+                                <div class="logout">
+                                    <div class="uid">
+                                        <span class="wrap-icon">
+                                            <i class="icon-user fa-sm"></i>
+                                        </span>
+                                    </div>
+                                    {{if .AdminRole}}
+                                    <a href="/admin" class="admin-link">
+                                        <span class="wrap-icon">
+                                            <i class="icon-cog fa-sm"></i>
+                                        </span>
+                                        Trang admin
+                                    </a>
+                                    {{else}}
+                                    {{end}}
+                                    <a href="/logout" class="logout-element">
+                                        <span class="wrap-icon">
+                                            <i class="icon-off fa-sm"></i>
+                                        </span>
+                                        Đăng xuất
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                    <a href="#" class="site-menu-toggle js-menu-toggle text-black d-inline-block d-lg-none"><span
+                            class="icon-menu h3"></span></a>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>
+{{end}}

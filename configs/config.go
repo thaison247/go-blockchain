@@ -9,6 +9,7 @@ type Configuration struct {
 	TARGET_BITS	int
 	REWARD int
 	NODE_ID string
+	WEB_PORT string
 }
 
 func GetConfig(params ...string) Configuration {
