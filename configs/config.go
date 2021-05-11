@@ -8,6 +8,7 @@ import (
 type Configuration struct {
 	TARGET_BITS	int
 	REWARD int
+	NODE_ID string
 }
 
 func GetConfig(params ...string) Configuration {

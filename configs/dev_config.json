@@ -1,4 +1,5 @@
 {
   "TARGET_BITS": 16,
-  "REWARD": 10
+  "REWARD": 10,
+  "NODE_ID": "3001"
 }

@@ -14,6 +14,7 @@ type Block struct {
 	PrevBlockHash []byte
 	Hash          []byte
 	Nonce			int
+	Height			int
 }
 
 //  hashes data of a block (timestamp, data, prevBlockHash) and assign it to Block.Hash
@@ -26,8 +27,8 @@ type Block struct {
 //}
 
 // NewBlock creates a new block with Transactions and Previous Block's Hash
-func NewBlock(transactions []*Transaction, prevBlockHash []byte) *Block {
-	block := &Block{time.Now().Unix(), transactions, prevBlockHash, []byte{}, 0}
+func NewBlock(transactions []*Transaction, prevBlockHash []byte, height int) *Block {
+	block := &Block{time.Now().Unix(), transactions, prevBlockHash, []byte{}, 0, height}
 	pow := NewProofOfWork(block)
 	nonce, hash := pow.Run() // finding nonce
 	block.Hash = hash[:]
@@ -38,7 +39,7 @@ func NewBlock(transactions []*Transaction, prevBlockHash []byte) *Block {
 
 // NewGenesisBlock initializes the Genesis Block (1st block in a blockchain)
 func NewGenesisBlock(coinbase *Transaction) *Block {
-	return NewBlock([]*Transaction{coinbase}, []byte{}) // a block without previous block's hash
+	return NewBlock([]*Transaction{coinbase}, []byte{}, 0) // a block without previous block's hash
 }
 
 // Serialize serializes block to array of bytes
