@@ -8,22 +8,27 @@ const cors = require("cors");
 require("dotenv").config();
 
 const Blockchain = require("./Blockchain");
+// const { clearScreenDown } = require("node:readline");
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 const MyCoin = new Blockchain();
-//TODO:
-const seed = bip39.mnemonicToSeedSync(
-  "brief accident carry stable kid viable veteran exchange brown permit zebra annual"
-);
-const root = hdkey.fromMasterSeed(seed);
-const privateKey = root.privateKey.toString("hex");
-const publicKey = root.publicKey.toString("hex");
 
-const master = MyCoin.createNewTransaction(1000000, "system-reward", publicKey);
-MyCoin.transactions.push(master);
-MyCoin.chain[0].transactions.push(master); // First transaction at first block
+const genesisBlock = async () => {
+  const seed = await bip39.mnemonicToSeed(
+    "toward together fish fat razor slow inside mechanic ritual wheel park rack"
+  );
+  const root = hdkey.fromMasterSeed(seed);
+  const publicKey = root.publicKey.toString("hex");
+
+  const master = MyCoin.createNewTransaction(10000, "system-reward", publicKey);
+  MyCoin.transactions.push(master);
+  MyCoin.chain[0].transactions.push(master); // First transaction at first block
+};
+
+genesisBlock();
+
 const port = process.env.PORT || process.argv[2];
 
 const server = app.listen(port, () => {
@@ -33,7 +38,7 @@ const server = app.listen(port, () => {
 const nodes = [];
 const io = require("socket.io")(server, {
   cors: {
-    origin: process.env.CLIENT_URL,
+    origin: "*",
     methods: ["GET", "POST"],
     allowedHeaders: ["my-custom-header"],
     credentials: true,
@@ -42,10 +47,11 @@ const io = require("socket.io")(server, {
 
 io.on("connection", (socket) => {
   nodes.push(new Blockchain(socket.id));
-  socket.emit("PT", MyCoin.pendingTransactions);
+  socket.emit("PT", MyCoin.pendingTransactions); // gửi mempool
   console.log("New user connected");
   console.log(socket.id);
 
+  //   client tạo 1 transaction
   app.post("/transaction/broadcast", (req, res) => {
     // console.log(req.body.amount);
     const amount = parseFloat(req.body.amount);
@@ -59,25 +65,18 @@ io.on("connection", (socket) => {
     let sender = req.body.sender;
 
     /*  -Authentication: check for valid private key-  */
-    if (
-      sender !== "system-reward" &&
-      sender !== "system-reward: new user" &&
-      sender !== "system-reward: invitation confirmed"
-    ) {
-      /*  -Authentication: check if user have the require amount of coins for current transaction && if user exist in the blockchain-  */
+    if (sender !== "system-reward") {
       const addressDataOfSender = MyCoin.getAddressData(req.body.sender);
-      // const addressDataOfRecipient = MyCoin.getAddressData(req.body.recipient);
       if (
         addressDataOfSender.addressBalance < amount ||
         addressDataOfSender === false
-        // addressDataOfRecipient === false
       ) {
         flag = false;
         res.json({
           note: false,
         });
       }
-      /*  -Authentication: fields cannot be empty-  */
+
       if (
         req.body.amount.length === 0 ||
         amount === 0 ||
@@ -110,6 +109,7 @@ io.on("connection", (socket) => {
     const { clientHdKey } = req.body;
 
     const root = hdkey.fromJSON(clientHdKey);
+
     const publicKey = root.publicKey.toString("hex");
 
     const lastBlock = MyCoin.getLastBlock();
@@ -118,7 +118,7 @@ io.on("connection", (socket) => {
     const currentBlockData = {
       transactions: [
         ...MyCoin.pendingTransactions,
-        MyCoin.createNewTransaction(12.5, "system-reward", publicKey),
+        MyCoin.createNewTransaction(100, "system-reward", publicKey),
       ],
       index: lastBlock["index"] + 1,
     };
@@ -149,7 +149,6 @@ io.on("connection", (socket) => {
           io.emit("PT", MyCoin.pendingTransactions);
           io.emit("T", MyCoin.transactions);
           io.emit("B", MyCoin.chain);
-          console.log("okeee");
           return;
         }
       });
@@ -271,6 +270,7 @@ app.post("/validateMnemonicPhrase", async (req, res) => {
 });
 
 app.get("/blockchain", (req, res) => {
+  console.log("mycoin:", MyCoin);
   res.json(MyCoin);
 });
 

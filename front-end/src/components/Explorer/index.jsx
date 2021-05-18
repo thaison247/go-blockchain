@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
-import "./styles.scss";
 import { Grid, makeStyles, Paper } from "@material-ui/core";
-import socketIOClient from "socket.io-client";
-import blockchainApi from "../../api/blockchainApi";
-import { useState } from "react";
-import DayJS from "react-dayjs";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
+import React, { useEffect, useState } from "react";
+import DayJS from "react-dayjs";
+import { toast } from "react-toastify";
+import socketIOClient from "socket.io-client";
+import blockchainApi from "../../api/blockchainApi";
+import "./styles.scss";
+// import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles((theme) => ({
   explorer_root: {
@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
     height: 48,
   },
 }));
+
 Explorer.propTypes = {};
 
 function Explorer(props) {
@@ -202,14 +203,14 @@ function Explorer(props) {
                     </div>
                     <div className="latest-transaction-second">
                       <div className="latest-transaction-second-content">
-                        <div className="latest-transaction-second-content-top">
+                        <div className="latest-transaction-second-content-top pending">
                           <span className="latest-transaction-second-content-info">
                             From
                           </span>
                           <a href="">{transaction.sender}</a>
                         </div>
 
-                        <div className="latest-transaction-second-content-bottom">
+                        <div className="latest-transaction-second-content-bottom pending">
                           <span className="latest-transaction-second-content-info">
                             To
                           </span>

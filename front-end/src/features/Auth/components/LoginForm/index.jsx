@@ -67,7 +67,7 @@ function LoginForm(props) {
             Access To Your Wallet
           </Typography>
           <span className="sub_title">Do not have a wallet?</span>
-          <a className="sub_title-link" href="">
+          <a className="sub_title-link" href="/">
             Create a new Wallet
           </a>
         </div>

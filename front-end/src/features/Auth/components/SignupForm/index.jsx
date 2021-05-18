@@ -58,7 +58,7 @@ function SignupForm(props) {
       </Typography>
       <div className="sub-root">
         <span className="sub_title">Already have a wallet?</span>
-        <a className="sub_title-link" href="">
+        <a className="sub_title-link" href="/login">
           Access My Wallet
         </a>
       </div>

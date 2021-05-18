@@ -117,7 +117,6 @@ function AccountInfoPage(props) {
           <div className="balance-info">
             <h6 className="title">Balance</h6>
             <span className="blance-content">{`${addressBalance} COINS`}</span>
-            <AutorenewIcon className={classes.refresh_icon}></AutorenewIcon>
           </div>
         </div>
         <div className="explorer">
