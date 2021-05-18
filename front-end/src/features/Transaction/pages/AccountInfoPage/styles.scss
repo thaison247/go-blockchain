@@ -1,0 +1,90 @@
+.dashboard {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.dashboard > div {
+  width: 380px;
+  height: 120px;
+}
+
+.address {
+  background-color: #7070e3;
+  border-radius: 10px;
+  display: flex;
+  // justify-content: center;
+  align-items: center;
+}
+
+.address-info {
+  margin-left: 20px;
+  color: #fff;
+}
+
+.balance {
+  background-color: #5a78f0;
+  border-radius: 10px;
+  display: flex;
+  // justify-content: center;
+  align-items: center;
+}
+
+.explorer {
+  background-color: #25b0e8;
+  border-radius: 10px;
+  display: flex;
+  // justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.title {
+  margin: 0;
+}
+
+.balance-info {
+  margin-left: 20px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+.form-transaction {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+}
+.amount,
+.to-address {
+  margin: 8px 0;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+}
+
+.transaction-title {
+  font-size: 30px;
+}
+
+.content {
+  overflow-wrap: break-word;
+  width: 230px;
+}
+
+.explorer__body {
+  display: flex;
+  align-items: center;
+}
+
+.address,
+.balance,
+.explorer {
+  background: linear-gradient(45deg, #eb7a93 30%, #f3a174 90%);
+  border-radius: 2px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
