@@ -1,0 +1,51 @@
+dl,
+ol,
+ul {
+  padding: 0;
+}
+
+.list-blocks,
+.list-transactions {
+  list-style-type: none;
+}
+
+.list-blocks__item,
+.list-transactions__item {
+  display: flex;
+  align-items: center;
+}
+
+.block-miner {
+  flex: 1;
+}
+
+.transaction-id,
+.transaction-parts {
+  margin-right: 8px;
+}
+
+.transaction-id {
+  flex: 2;
+  overflow: hidden;
+}
+
+.transaction-parts {
+  flex: 4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100px;
+}
+
+.part-from,
+.part-to {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+.transaction-value {
+  flex: 1;
+  text-align: center;
+}

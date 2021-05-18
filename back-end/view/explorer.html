@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="./style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd">
+      <!-- Navbar content -->
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Go-Blockchain</a>
+        <div class="user-options">
+          <button class="btn btn-outline btn-info">Access Wallet</button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">
+                With supporting text below as a natural lead-in to additional
+                content.
+              </p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">
+                With supporting text below as a natural lead-in to additional
+                content.
+              </p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blocks & Transactions -->
+      <div class="row mt-5">
+        <div class="col-6">
+          <h3>Latest Blocks</h3>
+          <ul id="blockList" class="list-blocks list-group">
+            <li class="list-blocks__item list-group-item">
+              <div class="block-height">
+                <span><strong>Block:</strong> 0</span>
+                <br />
+                <small>11-05-2021 11:54:07</small>
+              </div>
+              <div class="block-miner"></div>
+              <div class="block-reward"><strong>Value: </strong> 10</div>
+            </li>
+            <li class="list-blocks__item list-group-item">
+              <div class="block-height">
+                <span><strong>Block:</strong> 0</span>
+                <br />
+                <small>11-05-2021 11:54:07</small>
+              </div>
+              <div class="block-miner"></div>
+              <div class="block-reward"><strong>Value: </strong> 10</div>
+            </li>
+            <li class="list-blocks__item list-group-item">
+              <div class="block-height">
+                <span><strong>Block:</strong> 0</span>
+                <br />
+                <small>11-05-2021 11:54:07</small>
+              </div>
+              <div class="block-miner"></div>
+              <div class="block-reward"><strong>Value: </strong> 10</div>
+            </li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <h3>Latest Transactions</h3>
+          <ul class="list-transactions list-group">
+            <li class="list-transactions__item list-group-item">
+              <div class="transaction-id">
+                <span> <strong>TxID</strong></span>
+                <br />
+                <small
+                  >fe37837444392474e7e12e2660c1dd270e5f0cdb77ac172f96915cb7eeae3fb0</small
+                >
+              </div>
+              <div class="transaction-parts">
+                <div class="part-from">
+                  <div><strong>From:</strong></div>
+                  <div>
+                    00095118a077c10ff5ff13f21cb1f46b3d9f95297f7486748d582169919ecf5d7946ead41c3e13e4ca49a6be2f4ba0
+                  </div>
+                </div>
+                <div class="part-to">
+                  <div><strong>To:</strong></div>
+                  <div>32ffc69f28f27f1d08d9395b93229d404031710e</div>
+                </div>
+              </div>
+              <div class="transaction-value"><strong>Value:</strong> 10</div>
+            </li>
+            <li class="list-transactions__item list-group-item">
+              <div class="transaction-id">
+                <span> <strong>TxID</strong></span>
+                <br />
+                <small
+                  >fe37837444392474e7e12e2660c1dd270e5f0cdb77ac172f96915cb7eeae3fb0</small
+                >
+              </div>
+              <div class="transaction-parts">
+                <div class="part-from">
+                  <div><strong>From:</strong></div>
+                  <div>
+                    00095118a077c10ff5ff13f21cb1f46b3d9f95297f7486748d582169919ecf5d7946ead41c3e13e4ca49a6be2f4ba0
+                  </div>
+                </div>
+                <div class="part-to">
+                  <div><strong>To:</strong></div>
+                  <div>32ffc69f28f27f1d08d9395b93229d404031710e</div>
+                </div>
+              </div>
+              <div class="transaction-value"><strong>Value:</strong> 10</div>
+            </li>
+            <li class="list-transactions__item list-group-item">
+              <div class="transaction-id">
+                <span> <strong>TxID</strong></span>
+                <br />
+                <small
+                  >fe37837444392474e7e12e2660c1dd270e5f0cdb77ac172f96915cb7eeae3fb0</small
+                >
+              </div>
+              <div class="transaction-parts">
+                <div class="part-from">
+                  <div><strong>From:</strong></div>
+                  <div>
+                    00095118a077c10ff5ff13f21cb1f46b3d9f95297f7486748d582169919ecf5d7946ead41c3e13e4ca49a6be2f4ba0
+                  </div>
+                </div>
+                <div class="part-to">
+                  <div><strong>To:</strong></div>
+                  <div>32ffc69f28f27f1d08d9395b93229d404031710e</div>
+                </div>
+              </div>
+              <div class="transaction-value"><strong>Value:</strong> 10</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Pending Transactions -->
+      <div class="mt-5">
+        <h4>Pending Transactions</h4>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">TxID</th>
+              <th scope="col">Timestamp</th>
+              <th scope="col">From</th>
+              <th scope="col">To</th>
+              <th scope="col">Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+      integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+      crossorigin="anonymous"
+    ></script>
+    <script src="./config.js"></script>
+  </body>
+</html>

@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/labstack/echo/v4"
-	"github.com/thaison247/go-blockchain/app"
+	"github.com/thaison247/go-blKockchain/app"
 	"github.com/thaison247/go-blockchain/configs"
 	"github.com/thaison247/go-blockchain/structs"
 	"net/http"
@@ -22,6 +22,7 @@ func main() {
 		return c.Render(http.StatusOK, "explorer.html", nil)
 	})
 	e.GET("/block/all", getBlocks)
+	e.GET("/mempool", getMempool)
 	//port := configs.GetConfig().WEB_PORT
 	e.Logger.Fatal(e.Start(fmt.Sprintf(":%s",nodeID)))
 }
@@ -64,7 +65,7 @@ func getBlocks(c echo.Context) error {
 				txInput["txID"] = fmt.Sprintf("%x", in.Txid)
 				txInput["vout"] = in.Vout
 				txInput["signature"] = fmt.Sprintf("%x", in.Signature)
-				txInput["pubKey"] = fmt.Sprintf("%x", in.PubKey)
+				txInput["pubKey"] = fmt.Sprintf("%x", structs.Base58Decode(in.PubKey))
 
 				vin = append(vin, txInput)
 			}
@@ -76,7 +77,7 @@ func getBlocks(c echo.Context) error {
 				txOutput["value"] = out.Value
 				txOutput["pubKeyHash"] = fmt.Sprintf("%x", out.PubKeyHash)
 
-				vout = append(vin, txOutput)
+				vout = append(vout, txOutput)
 			}
 			txMap["vout"] = vout
 
@@ -94,6 +95,11 @@ func getBlocks(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, res)
+}
+
+func getMempool(c echo.Context) error {
+	pendingTx := GetMemPool()
+	return c.JSON(http.StatusOK, pendingTx)
 }
 
 

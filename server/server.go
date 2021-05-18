@@ -464,3 +464,8 @@ func nodeIsKnown(addr string) bool {
 
 	return false
 }
+
+//mempool = make(map[string]structs.Transaction)
+func GetMemPool() map[string]structs.Transaction {
+	return mempool
+}
